@@ -1,24 +1,32 @@
-# README
+# <artix>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サイト概要
 
-Things you may want to cover:
 
-* Ruby version
+### サイトテーマ
+<...>
+- 創作物（イラスト）を投稿、閲覧できるコミュニティサイト。
 
-* System dependencies
+### テーマを選んだ理由
+<イラストを見たり描いたりしている中で、投稿と閲覧だけのサイトはあるものの双方向のやり取りができるものがなかったため、あると便利だと思い、このテーマにしました。>
 
-* Configuration
 
-* Database creation
+### ターゲットユーザ
+<イラストレーター、イラストを見たい人>
 
-* Database initialization
+### 主な利用シーン
+<イラストを作成した際の投稿、自分が見たいイラストを見る際>
 
-* How to run the test suite
+## 設計書
+<...>
 
-* Services (job queues, cache servers, search engines, etc.)
+## 開発環境
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：jQuery
+- IDE：Cloud9
 
-* Deployment instructions
-
-* ...
+## 使用素材
+- 外部サービスの画像素材・音声素材を使用した場合は、必ずサービス名とURLを明記してください。
+- 使用しない場合は、使用素材の項目をREADMEから削除してください。
