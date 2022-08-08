@@ -17,6 +17,8 @@ class Public::IllustsController < ApplicationController
   end
 
   def index
+    @illusts = Illust.all
+    @user = current_user
   end
 
   def show
@@ -25,5 +27,34 @@ class Public::IllustsController < ApplicationController
   end
 
   def edit
+    @illust = Illust.find(params[:id])
+    if @illust.user_id == current_user.id
+      render "edit"
+    else
+      redirect_to illusts_path
+    end
   end
+  
+  def update
+    @illust = Illust.find(params[:id])
+   if @illust.update(book_params)
+    flash[:notice] = 'Book was successfully updated.'
+    redirect_to illust_path(@illust.id) 
+   else
+    render :edit
+   end
+  end
+  
+  def destroy
+    @illust = Illust.find(params[:id])
+    @illust.destroy
+    redirect_to illusts_path
+  end
+  
+  private
+
+  def illust_params
+    params.require(:illust).permit(:title, :detail)
+  end
+  
 end
