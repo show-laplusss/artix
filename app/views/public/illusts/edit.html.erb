@@ -1,0 +1,29 @@
+<% if @illust.errors.any? %>
+  <%= @illust.errors.count %>件のerrorが発生しました
+  <ul>
+    <% @illust.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+      <h1>Editing Illust</h1>
+       <%= form_with model: @illust,method: :patch do |f| %>
+       <div>
+          <p>Title</p>
+          <%= f.text_field :title, autofocus: true %>   
+      </div>
+      <div>
+          <p>Detail</p>
+          <%= f.text_field :detail %>
+      </div>
+          <input type="submit" name="commit" value="Update Illust" class="btn btn-success" data-disable-with="Update Book">
+        <% end %>
+        <%= link_to illust_path(@illust.id) do %>Show<% end %>
+        <%= link_to illusts_path do %>Back<% end %>
+    </div>
+  </div>
+</div>
