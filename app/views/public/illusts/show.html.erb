@@ -9,10 +9,10 @@
             <th>name</th>
             <th><%= @user.name %></th>
             </tr>
-            <tr>
+            <!--><tr>
             <th>introduction</th>
             <th><%= @user.introduction %></th>
-            </tr>
+            </tr><-->
           </tbody>
         </table>
             <!-- パスは確認 -->
@@ -32,9 +32,9 @@
     <td><%= link_to book_path(@illust.id) do %>
     <%= @illust.title %>
     <% end %></td>
-    <td><%= @illust.body %></td>
+    <td><%= @illust.detail %></td>
     <% if @illust.user == current_user %>
-    <td><%= link_to edit_book_path(@illust.id) do %>
+    <td><%= link_to edit_illust_path(@illust.id) do %>
       <i class="btn btn-success" >Edit</i>
     <% end %></td>
     
