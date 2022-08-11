@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <h2>User info</h2>
+        <%= image_tag @user.get_profile_image(100,100) %>
+          <table class="table">
+          <tbody><tr></tr>
+            <tr>
+            <th>name</th>
+            <th><%= @user.name %></th>
+            </tr>
+            <!--><tr>
+            <th>introduction</th>
+            <th><%= @user.introduction %></th>
+            </tr><-->
+          </tbody>
+        </table>
+            <!-- パスは確認 -->
+            <%= link_to edit_user_path(@user.id), class:"btn btn-outline-secondary btn-block" do %>
+            <i class="fas fa-user-cog"></i>
+            <% end %>
+    </div>
+
+<div class="col-md-8 offset-md-1">
+  <table class="table">
+    <h2>Book detail</h2>
+    <tr>
+    <td><%= image_tag @user.get_profile_image(100,100) %>
+    <%= link_to user_path(@user.id) do %>
+    <p><%= @illust.user.name %></p>
+    <% end %></td>
+    <td><%= link_to book_path(@illust.id) do %>
+    <%= @illust.title %>
+    <% end %></td>
+    <td><%= @illust.detail %></td>
+    <% if @illust.user == current_user %>
+    <td><%= link_to edit_illust_path(@illust.id) do %>
+      <i class="btn btn-success" >Edit</i>
+    <% end %></td>
+    
+    <td><%= link_to (@illust.id),method: :delete, "data-confirm" => "本当に削除しますか？" do %>
+      <i class="btn btn-sm btn-danger" >Destroy</i>
+    <% end %></td>
+    <% end %>
+    </tr>
+  </table>
+  
+</div>  
+</div>
+</div>
