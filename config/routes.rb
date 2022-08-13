@@ -1,11 +1,19 @@
 Rails.application.routes.draw do
+  namespace :public do
+    get 'relationships/followings'
+    get 'relationships/followers'
+  end
   root to: 'homes#top'
   
   namespace :public do
     resources :direct_message, only: [:new, :index, :show, :edit, :destroy]
     resources :comments, only: [:new, :index, :show, :edit, :destroy]
     resources :illusts, only: [:new, :index, :show, :edit, :destroy]
-    resources :users, only: [:new, :show, :edit, :destroy]
+    resources :users, only: [:new, :show, :edit, :destroy] do
+      resource :relationships, only: [:create, :destroy]
+      get 'followings' => 'registrations#followings', as: 'followings'
+      get 'followers' => 'registrations#followers', as: 'followers'
+    end
     get 'homes/top'
   end
   
