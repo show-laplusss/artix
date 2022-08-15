@@ -1,14 +1,11 @@
 Rails.application.routes.draw do
+  root to: 'homes#top'
   
   namespace :public do
     resources :direct_message, only: [:new, :index, :show, :edit, :destroy]
     resources :comments, only: [:new, :index, :show, :edit, :destroy]
+    resources :illusts, only: [:new, :index, :show, :edit, :destroy]
     resources :users, only: [:new, :show, :edit, :destroy]
-    resources :illusts, only: [:new, :index, :show, :edit, :destroy] do
-      resources :comments, only: [:new, :create, :destroy]
-      resource :favorites, only: [:create, :destroy]
-    end
-    root to: 'homes#top'
     get 'homes/top'
   end
   
