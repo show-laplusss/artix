@@ -24,6 +24,7 @@ class Public::IllustsController < ApplicationController
   def show
     @illust = Illust.find(params[:id])
     @user = @illust.user
+    @comment = Comment.new
   end
 
   def edit
