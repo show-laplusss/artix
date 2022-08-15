@@ -42,18 +42,20 @@
         </tr>
       </thead>
       <tbody>
-        <% @illusts.each do |book| %>
+        <% @illusts.each do |illust| %>
         <tr>
-        <td><%= link_to user_path(book.user.id) do %>
-          <%= image_tag book.user.get_profile_image(100,100) %>
-          <% end %></td>
-        <td><%= link_to book_path(book.id) do %>
+        <td><%= link_to user_path(illust.user.id) do %>
+          <%= image_tag illust.user.get_profile_image(100,100) %>
+          <% end %>
+        </td>
+        <td><%= link_to illust_path(illust.id) do %>
           
           <% end %>
-          </td>
+        </td>
           <td><%= illust.detail %></td>
           <td><%= illust.user.name %></td>
-          </tr>
+          <td><%= link_to "#{illust.comments.count}コメント", illust_path(illust.id)) %></td>
+        </tr>
         <% end %> 
   </div>
 </div>
