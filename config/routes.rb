@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     resources :direct_message, only: [:new, :index, :show, :edit, :destroy]
     resources :comments, only: [:new, :index, :show, :edit, :destroy]
     resources :illusts, only: [:new, :index, :show, :edit, :destroy]
+    resources :direct_messages, only: [:create]
+    resources :rooms, only : [:create, :index, :show]
     resources :users, only: [:new, :show, :edit, :destroy] do
       resource :relationships, only: [:create, :destroy]
       get 'followings' => 'registrations#followings', as: 'followings'
