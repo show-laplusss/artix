@@ -1,2 +1,7 @@
-<h1>Public::Users#show</h1>
-<p>Find me in app/views/public/users/show.html.erb</p>
+<% unless @user.id == current_user.id %>
+    <% if @is_room == true %>
+        <%= link_to "message" , room_path(@room_id) %>
+    <% else %>
+        <% form_with @room do |f| %>
+            <% 
+    
