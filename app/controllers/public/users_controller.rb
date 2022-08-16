@@ -1,5 +1,10 @@
 class Public::UsersController < ApplicationController
+  before_action :authenticate_user!, :only => [:show]
   def new
+  end
+  
+  def index
+    @users = User.all
   end
 
   def show

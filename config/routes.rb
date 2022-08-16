@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   root to: 'homes#top'
   
   namespace :public do
-    resources :direct_message, only: [:new, :index, :show, :edit, :destroy]
+    resources :direct_message, only: [:create, :index, :show, :edit, :destroy]
+    resources :rooms, only: [:create, :show, :index]
     resources :comments, only: [:new, :index, :show, :edit, :destroy]
     resources :illusts, only: [:new, :index, :show, :edit, :destroy]
     resources :users, only: [:new, :show, :edit, :destroy]

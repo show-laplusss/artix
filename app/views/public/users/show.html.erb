@@ -3,9 +3,12 @@
         <%= link_to "message" , room_path(@room_id) %>
     <% else %>
         <%= form_with @room do |f| %>
-            <%= f.text_field :@entry %>
-            <%= hidden_field :user_id, value: @user.id %>
-            <%= f.submit "メッセージを送る" %>
+            <%= f.text_field :@entry  do |e| %>
+                <%= e.hidden_field :user_id, value: @user.id %>
+            <% end %>
+            <%= f.submit "send message" %>
         <% end %>
     <% end %>
+<% end %>
+
     
