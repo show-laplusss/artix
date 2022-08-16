@@ -11,4 +11,8 @@
     <% end %>
 <% end %>
 
-    
+<% if current_user.following?(user) %>
+    <%= link_to "フォローを外す", user_relationships_path(user_id), method: :delete %>
+<% else %>
+    <%= link_to "フォローする", user_relationships_path(user_id), method: :post %>
+<% end %>

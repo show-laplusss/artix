@@ -25,6 +25,7 @@ class Public::UsersController < ApplicationController
         @entry = EntryRoom.new
       end
     end
+
   end
 
   def edit
