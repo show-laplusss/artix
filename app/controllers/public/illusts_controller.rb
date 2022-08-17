@@ -19,6 +19,11 @@ class Public::IllustsController < ApplicationController
   def index
     @illusts = Illust.all
     @user = current_user
+    
+    if params[:tag]
+      Tag.create(name: params[:tag])
+    end
+    
   end
 
   def show
@@ -56,6 +61,9 @@ class Public::IllustsController < ApplicationController
 
   def illust_params
     params.require(:illust).permit(:title, :detail)
+  end
+  def article_params
+    params.require(:article).permit(:body, tag_ids: [])
   end
   
 end

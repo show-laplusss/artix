@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       resources :comments, only: [:new, :create, :destroy]
       resource :favorites, only: [:create, :destroy]
     end
-    resources :rooms, only : [:create, :index, :show]
+    resources :rooms, only: [:create, :index, :show]
     resources :users, only: [:new, :show, :edit, :destroy] do
       resource :relationships, only: [:create, :destroy]
       get 'followings' => 'registrations#followings', as: 'followings'
