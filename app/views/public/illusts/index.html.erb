@@ -48,6 +48,12 @@
           <%= image_tag illust.user.get_profile_image(100,100) %>
           <% end %>
         </td>
+        
+        <%= form_tag({controller: "illusts", action:"index"}, method: :get) do %>
+          <%= text_field_tag :tag %>
+          <%= submit_tag 'add tag' %>
+        <% end %>
+        
         <td><%= link_to illust_path(illust.id) do %>
           
           <% end %>

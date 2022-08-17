@@ -36,6 +36,11 @@
           <%= @illust.title %>
           <% end %>
         </td>
+        
+        <% @illust.tags.each do |tag| %>
+          <span>M%= tag.name %></span>
+        <% end %>
+        
         <td>
           <%= @illust.detail %>
         </td>
