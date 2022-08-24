@@ -1,7 +1,6 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!, :only => [:show]
-  def new
-  end
+
   
   def index
     @users = User.all
@@ -9,6 +8,7 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @illust = @user.illusts
     @current = EntryRoom.where(user_id: current_user.id)
     @another = EntryRoom.where(user_id: @user.id)
     unless @user.id == current_user.id
@@ -29,5 +29,23 @@ class Public::UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
+  end
+  
+  def update
+    @user = User.find(params[:id])
+    if @user.update!(user_params)
+      flash[:notice] = 'User date was successfully updated.'
+      
+      redirect_to public_user_path(@user.id)
+    else
+      render :edit
+    end
+  end
+  
+  private
+
+  def user_params
+    params.permit(:user_name, :profile_image, :introduction)
   end
 end
