@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   root 'public/homes#top'
   namespace :public do
     resources :direct_message, only: [:create, :index, :show, :edit, :destroy]
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
     end
     get 'relationships/followings'
     get 'relationships/followers'
+
     get 'homes/top'
     
   end
