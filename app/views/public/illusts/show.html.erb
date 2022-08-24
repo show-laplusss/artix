@@ -7,7 +7,7 @@
           <tbody><tr></tr>
             <tr>
             <th>name</th>
-            <th><%= @user.name %></th>
+            <th><%= @user.user_name %></th>
             </tr>
             <!--><tr>
             <th>introduction</th>
@@ -16,7 +16,7 @@
           </tbody>
         </table>
             <!-- パスは確認 -->
-            <%= link_to edit_user_path(@user.id), class:"btn btn-outline-secondary btn-block" do %>
+            <%= link_to edit_public_user_path(@user.id), class:"btn btn-outline-secondary btn-block" do %>
             <i class="fas fa-user-cog"></i>
             <% end %>
     </div>
@@ -24,19 +24,61 @@
 <div class="col-md-8 offset-md-1">
   <table class="table">
     <h2>Book detail</h2>
-    <tr>
-    <td><%= image_tag @user.get_profile_image(100,100) %>
-    <%= link_to user_path(@user.id) do %>
-    <p><%= @illust.user.name %></p>
-    <% end %></td>
-    <td><%= link_to book_path(@illust.id) do %>
-    <%= @illust.title %>
-    <% end %></td>
-    <td><%= @illust.detail %></td>
-    <% if @illust.user == current_user %>
-    <td><%= link_to edit_illust_path(@illust.id) do %>
-      <i class="btn btn-success" >Edit</i>
-    <% end %></td>
+
+      <tr>
+        <td>
+          <%= image_tag @user.get_profile_image(100,100) %>
+          <%= link_to public_user_path(@user.id) do %>
+          <p><%= @illust.user.user_name %></p>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to public_illust_path(@illust.id) do %>
+          <%= @illust.title %>
+          <% end %>
+        </td>
+        <td>
+          <%= @illust.detail %>
+        </td>
+      <% if @illust.user == current_user %>
+    <td>
+      <%= link_to edit_public_illust_path(@illust.id) do %>
+        <i class="btn btn-success" >Edit</i>
+      <% end %>
+    </td>
+    
+    <td>
+      コメント:<%= @illust.comments.count %>
+      <% @illust.comments.each do |comment| %>
+        <%= comment.user.name %>
+        <%= comment.created_ad.strftime('%Y/%m/%d') %><%= comment.comment %>
+        <% if comment.user == current_user %>
+          <%= link_to"削除", public_illust_comment_path(comment.illust, comment), method: :delete %>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <%= form_with public_illust_comments_path(@illust.id), method: :post do |f| %>
+      <%= f.text_area :comment, rows: '5', placeholder:"コメント" %>
+      <%= f.submit "送信" %>
+      <% end %>
+    </td>
+    
+    
+    <% if @illust.favorited_by?(current_user) %>
+      <td>
+        <%= link_to public_illust_favorite_path(@illust), method: :delete do %>
+          <%= @illust.favorites.count %>いいね
+        <% end %>
+      </td>
+    <% else %>
+      <td>
+        <%= link_to public_illust_favorite_path(@illust), method: :post do %>
+          <%= @illust.favorites.count %>いいね
+        <% end %>
+      </td>
+    <% end %>
+
     
     <td><%= link_to (@illust.id),method: :delete, "data-confirm" => "本当に削除しますか？" do %>
       <i class="btn btn-sm btn-danger" >Destroy</i>

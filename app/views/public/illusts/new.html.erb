@@ -8,7 +8,7 @@
 <% end %>
 
 <h1>イラスト投稿</h1>
-  <%= form_with model: @illust do |f| %>
+  <%= form_with model: @illust, url: public_illusts_path, method: :create  do |f| %>
     <h4>イラスト</h4>
       <%= f.file_field :image, accept: "image/*" %>
     <h4>Title</h4>

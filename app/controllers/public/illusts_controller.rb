@@ -8,7 +8,7 @@ class Public::IllustsController < ApplicationController
     @illust.user_id = current_user.id
     if @illust.save
       flash[:notice] = 'Illust was successfully created.'
-      redirect_to 
+      redirect_to public_illust_path(@illust.id)
     else
       @illusts = Illust.all
       @user = current_user

@@ -1,51 +1,49 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-3">
-      <h2>User info</h2>
-        <%= image_tag @user.get_profile_image(100,100) %>
-        <table class="table">
-          <tbody><tr></tr>
-            <tr>
-	            <th>name</th>
-	            <th><%= @user.name %></th>
-            </tr>
-            <tr>
-	            <th>introduction</th>
-	            <th><%= @user.introduction %></th>
-            </tr>
-            </tbody>
-          </table>
-              <%= link_to edit_user_path(@user.id), class:"btn btn-outline-secondary btn-block" do %>
-              <i class="fas fa-user-cog"></i>
-              <% end %>
-    </div>
 
- 
+    <div class="row">
+        <div class="col-md-3">
+            <h2>User info</h2>
+                <% if @user.profile_image.attached? %>
+                <%= image_tag @user.get_profile_image %>
+                <% end %>
+                <table class="table">
+                    <tbody><tr></tr>
+                    <tr>
+                        <th>name</th>
+                        <th><%= @user.user_name %></th>
+                    </tr>
+                    <tr>
+                        <th>introduction</th>
+                        <th><%= @user.introduction %></th>
+                    </tr>
+                    </tbody>
+                </table>
+            <%= link_to edit_public_user_path(@user.id), class:"btn btn-outline-secondary btn-block" do %>
+                <i class="fas fa-user-cog"></i>
+            <% end %>
 
-    <div class="col-md-8 offset-md-1">
-      <table class="table">
-        <h2>Books</h2>
-          <thead>
-          <tr>
-            <th>Title</th>
-            <th>Opinion</th>
-          </tr>
-          </thead>
-          <tbody>
-            <% @books.each do |book| %>
-            <tr>
-            <td><%= link_to user_path(@user.id) do %>
-              <%= image_tag book.user.get_profile_image(100,100) %>
-              <% end %></td>
-            <td><%= link_to book_path(book.id) do %>
-            <%= book.title %>
-            <% end %></td>
-            <td><%= book.body %></td>
-            <td><%= book.user.name %></td>
-            <% end %>  
-            </tr>
-            </tbody>
-      </table>
+
+<% unless @user.id == current_user.id %>
+    <% if @is_room == true %>
+        <%= link_to "message" , room_path(@room_id) %>
+    <% else %>
+        <%= form_with @room do |f| %>
+            <%= f.text_field :@entry  do |e| %>
+                <%= e.hidden_field :user_id, value: @user.id %>
+            <% end %>
+            <%= f.submit "send message" %>
+        <% end %>
+    <% end %>
+
+
+    <% if current_user.following?(@user) %>
+        <%= link_to "フォローを外す", public_user_relationships_path(@user.id), method: :delete %>
+    <% else %>
+        <%= link_to "フォローする", public_user_relationships_path(@user.id), method: :post %>
+    <% end %>
+
+<% end %>
+
     </div>
   </div>
 </div>   

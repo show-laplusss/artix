@@ -1,0 +1,23 @@
+<h1>Direct Message</h1>
+
+<h4>user</h4>
+    <% @entry.each do |e| %>
+        <% href= "/users/ <%= e.user.id %>" %><%= e.user.email %>
+    <% end %>
+    
+    <% if @messages.present? %>
+        <% @messages.each do |m| %>
+            <%= m.message %>
+            by<% href="/users/<%= m.user_id %>"%><%= m.user.email %>
+        <% end %>
+    <% else %>
+        <div class>No Message</div>
+    <% end %>
+    
+    <%= form_with @message do |f| %>
+        <%= f.text_field :message, :placeholder => "メッセージ", :size => 70 %>
+        <%= f.hidden_field :room_id, :value => @room.id %>
+        <br>
+        <%= f.submit "send message" %>
+    <% end %>
+            
