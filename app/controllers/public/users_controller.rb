@@ -7,6 +7,7 @@ class Public::UsersController < ApplicationController
   end
 
   def show
+
     @user = User.find(params[:id])
     @illust = @user.illusts
     @current = EntryRoom.where(user_id: current_user.id)

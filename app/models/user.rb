@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+
   has_many :favorites, dependent: :destroy
   has_many :comments, dependent: :destroy
 
@@ -29,6 +30,7 @@ class User < ApplicationRecord
     followings.include?(user)
   end
   
+
   validates :last_name, presence: true
   validates :first_name, presence: true
   validates :user_name, presence: true
