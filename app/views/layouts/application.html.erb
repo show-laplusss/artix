@@ -14,6 +14,15 @@
   <header>
     <% if user_signed_in? %>
       <li>
+        <%= link_to "artix", public_illusts_path %>
+      </li>
+      <li>
+        <%= link_to "新規投稿", new_public_illust_path %>
+      </li>
+      <li>
+        <%= link_to "my page", public_user_path(current_user.id) %>
+      </li>
+      <li>
         <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
       </li>
     <% end %>
