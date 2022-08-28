@@ -19,9 +19,15 @@ class Public::CommentsController < ApplicationController
       redirect_back(fallback_location: root_path)  #同上
     end
   end
+  
+  def destroy
+    @comment = Comment.find(params[:id])
+    @comment.destroy
+    redirect_back(fallback_location: root_path)
+  end
 
   private
   def comment_params
-    params.require(:comment).permit(:comment, :illust_id)  #formにてpost_idパラメータを送信して、コメントへpost_idを格納するようにする必要がある。
+    params.permit(:comment, :illust_id)  #formにてpost_idパラメータを送信して、コメントへpost_idを格納するようにする必要がある。
   end
 end

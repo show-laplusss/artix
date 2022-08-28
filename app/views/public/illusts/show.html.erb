@@ -56,8 +56,10 @@
           <td>
             コメント:<%= @illust.comments.count %>
             <% @illust.comments.each do |comment| %>
-              <%= comment.user.name %>
-              <%= comment.created_ad.strftime('%Y/%m/%d') %><%= comment.comment %>
+              <%= comment.user.user_name %>
+              <%= comment.created_at.strftime('%Y/%m/%d') %>
+              <br>
+              <%= comment.comment %>
               <% if comment.user == current_user %>
                 <%= link_to"削除", public_illust_comment_path(comment.illust, comment), method: :delete %>
               <% end %>
@@ -72,11 +74,11 @@
       <tr>
         <td>
           <% if @illust.favorited_by?(current_user) %>
-            <%= link_to url: public_illust_favorites_path(@illust), method: :delete do %>
+            <%= link_to public_illust_favorites_path(@illust), method: :delete do %>
               ♥<%= @illust.favorites.count %>　いいね
             <% end %>
           <% else %>
-            <%= link_to url: public_illust_favorites_path(@illust), method: :post do %>
+            <%= link_to public_illust_favorites_path(@illust), method: :post do %>
               ♡<%= @illust.favorites.count %>　いいね
             <% end %>
           <% end %>
