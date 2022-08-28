@@ -1,41 +1,89 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
       <h2>User info</h2>
         <%= image_tag @user.get_profile_image(100,100) %>
           <table class="table">
-          <tbody><tr></tr>
-            <tr>
-            <th>name</th>
-            <th><%= @user.name %></th>
-            </tr>
-            <!--><tr>
-            <th>introduction</th>
-            <th><%= @user.introduction %></th>
-            </tr><-->
-          </tbody>
-        </table>
+            <tbody>
+              <tr>
+                <th>name</th>
+                <td><%= @user.user_name %></td>
+              </tr>
+              <tr>
+                <th>introduction</th>
+                <td><%= @user.introduction %></td>
+              </tr>
+            </tbody>
+          </table>
             <!-- パスは確認 -->
-            <%= link_to edit_user_path(@user.id), class:"btn btn-outline-secondary btn-block" do %>
-            <i class="fas fa-user-cog"></i>
+          <% if @user == current_user %>
+            <%= link_to edit_public_user_path(@user.id), class:"btn btn-outline-secondary btn-block" do %>
+              <i class="fas fa-user-cog"></i>
             <% end %>
+          <% end %>
     </div>
 
-<div class="col-md-8 offset-md-1">
-  <table class="table">
-    <h2>Book detail</h2>
+    <div class="col-md-9 offset-md-1">
+      <table class="table">
+        <tr>
+          <td>
+            <h2><%= @illust.title %></h2>
+              <%= image_tag @user.get_profile_image(50,50) %>
+                <%= link_to public_user_path(@user.id) do %>
+                  <p><%= @illust.user.user_name %></p>
+                <% end %>
+          </td>
+          </tr>
+        <tr>
+          <td>
+            <%= image_tag @illust.get_image(900,900) %>
+          </td>
+        </tr>
+          <tr>
+            <td>
+              <%= @illust.detail %>
+            </td>
+            <td>
+              <% if @illust.user == current_user %>
+                <%= link_to edit_public_illust_path(@illust.id) do %>
+                  <i class="btn btn-success" >Edit</i>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+    <!--コメント機能-->
+        <tr>
+          <td>
+            コメント:<%= @illust.comments.count %>
+            <% @illust.comments.each do |comment| %>
+              <%= comment.user.user_name %>
+              <%= comment.created_at.strftime('%Y/%m/%d') %>
+              <br>
+              <%= comment.comment %>
+              <% if comment.user == current_user %>
+                <%= link_to"削除", public_illust_comment_path(comment.illust, comment), method: :delete %>
+              <% end %>
+            <% end %>
+            <%= form_with url: public_illust_comments_path(@illust.id), method: :post do |f| %>
+              <%= f.text_area :comment, rows: '5' , cols: '50', placeholder:"コメント" %>
+              <%= f.submit "送信" %>
+            <% end %>
+          </td>
+        </tr>
+    <!--いいね機能-->
       <tr>
         <td>
-          <%= image_tag @user.get_profile_image(100,100) %>
-          <%= link_to user_path(@user.id) do %>
-          <p><%= @illust.user.name %></p>
+          <% if @illust.favorited_by?(current_user) %>
+            <%= link_to public_illust_favorites_path(@illust), method: :delete do %>
+              ♥<%= @illust.favorites.count %>　いいね
+            <% end %>
+          <% else %>
+            <%= link_to public_illust_favorites_path(@illust), method: :post do %>
+              ♡<%= @illust.favorites.count %>　いいね
+            <% end %>
           <% end %>
         </td>
-        <td>
-          <%= link_to book_path(@illust.id) do %>
-          <%= @illust.title %>
-          <% end %>
-        </td>
+
         
         <% @illust.tags.each do |tag| %>
           <span>M%= tag.name %></span>
@@ -82,14 +130,19 @@
         <% end %>
       </td>
     <% end %>
-    
-      <td><%= link_to (@illust.id),method: :delete, "data-confirm" => "本当に削除しますか？" do %>
-        <i class="btn btn-sm btn-danger" >Destroy</i>
-        <% end %></td>
-      <% end %>
-    </tr>
-  </table>
-  
-</div>  
-</div>
+      </tr>
+    <!--削除-->
+        <tr>
+          <td>
+            <% if @illust.user == current_user %>
+              <%= link_to public_illust_path(@illust) ,method: :delete, "data-confirm" => "本当に削除しますか？" do %>
+                <i class="btn btn-sm btn-danger" >Destroy</i>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+    </div>  
+  </div>
+
 </div>

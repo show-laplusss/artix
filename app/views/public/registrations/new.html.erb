@@ -1,7 +1,10 @@
+<div class="container">
+  <div class="row">
+    <div class="mx-auto col-11 col-sm-10 col-lg-8 col-xl-6"><h2></h2>
 <h2>Sign up</h2>
 
 <%= form_with model: @user, url: user_registration_path do |f| %>
-  <%= render "publics/shared/error_messages", resource: resource %>
+  <%= render "public/shared/error_messages", resource: resource %>
   
   <div class="field">
     <%= f.label :last_name %><br>
@@ -12,6 +15,8 @@
     <%= f.label :first_name %><br>
     <%= f.text_field :first_name, autofocus: true %>
   </div>
+  
+  
 
   <div class="field">
     <%= f.label :email %><br />
@@ -37,3 +42,6 @@
 <% end %>
 
 <%= render "public/shared/links" %>
+  </div>
+</div>
+</div>

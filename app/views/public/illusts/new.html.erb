@@ -1,30 +1,27 @@
-<% if @illust.errors.any? %>
-  <%= @illust.errors.count %>件のエラーが発生しました
-  <ul>
-    <% @illust.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-  </ul>
-<% end %>
 
-<h1>イラスト投稿</h1>
-  <%= form_with model: @illust do |f| %>
-    <h4>イラスト</h4>
-      <%= f.file_field :image, accept: "image/*" %>
-    <h4>Title</h4>
-      <%= f.text_field :title %>
-    <h4>Detail</h4>
-      <%= f.text_area :detail %>
-
-    <div class = 'form-group'>
-      <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
-        <div class = 'form-check'>
-          <%= tag.label class: 'form-check-label' do %>
-            <%= tag.check_box class: 'form-check-input' %>
-            <%= tab.text %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <% if @illust.errors.any? %>
+        <%= @illust.errors.count %>件のエラーが発生しました
+        <ul>
+          <% @illust.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
           <% end %>
-        </div>
+        </ul>
       <% end %>
+          
+      <h1>イラスト投稿</h1>
+        <%= form_with model: @illust, url: public_illusts_path, method: :post do |f| %>
+          <h4>イラスト</h4>
+            <%= f.file_field :image, accept: "image/*" %>
+          <h4>Title</h4>
+            <%= f.text_field :title %>
+          <h4>Detail</h4>
+            <%= f.text_area :detail %>
+            <%= f.submit '投稿' %>
+          <% end %>
     </div>
-    <%= f.submit '投稿' %>
-  <% end %>
+  </div>
+</div>  
+
