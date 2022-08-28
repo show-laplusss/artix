@@ -1,23 +1,34 @@
-<h1>Direct Message</h1>
-
-<h4>user</h4>
-    <% @entry.each do |e| %>
-        <% href= "/users/ <%= e.user.id %>" %><%= e.user.email %>
-    <% end %>
-    
-    <% if @messages.present? %>
-        <% @messages.each do |m| %>
-            <%= m.message %>
-            by<% href="/users/<%= m.user_id %>"%><%= m.user.email %>
-        <% end %>
-    <% else %>
-        <div class>No Message</div>
-    <% end %>
-    
-    <%= form_with @message do |f| %>
-        <%= f.text_field :message, :placeholder => "メッセージ", :size => 70 %>
-        <%= f.hidden_field :room_id, :value => @room.id %>
-        <br>
-        <%= f.submit "send message" %>
-    <% end %>
-            
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 offset-md-3">
+            <tr>
+                <td>
+                    <h1>Direct Message</h1>
+                    
+                    <h4>User</h4>
+                    <% @entries.each do |e| %>
+                        <%= link_to e.user.user_name, public_user_path(e.user) %>
+                    <% end %>
+                    <h4>Messages</h4>
+                    <% if @messages.present? %>
+                        <% @messages.each do |m| %>
+                            <%= m.message %>
+                            by<%= link_to m.user.user_name, public_user_path(m.user) %>
+                            <br>
+                        <% end %>
+                    <% else %>
+                        <div class>No Message</div>
+                    <% end %>
+                    
+                    <%= form_with url: public_direct_message_index_path, method: :post do |f| %>
+                        <%= f.text_field :message, :placeholder => "メッセージ", :size => 70 %>
+                        <%= f.hidden_field :room_id, :value => @room.id %>
+                        <br>
+                        <%= f.submit "send message" %>
+                    <% end %>
+                </td>
+            </tr>
+        </div>
+    </div>
+</div>
+                    

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root 'public/homes#top'
   namespace :public do
     resources :direct_message, only: [:create, :index, :show, :edit, :destroy]
-    resources :illusts, only: [:new, :index, :show, :edit, :create, :destroy] do
+    resources :illusts, only: [:new, :index, :show, :edit, :create, :update, :destroy] do
       resources :comments, only: [:new, :create, :destroy]
       resource :favorites, only: [:create, :destroy]
     end
