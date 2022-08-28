@@ -1,10 +1,10 @@
 class Public::RoomsController < ApplicationController
     before_action :authenticate_user!
     def create
-        @room = Room.new
-        @current = EntryRoom.new(user_id: current_user.id, room_id: room.id)
-        @another = EntryRoom.new(user_id: params[:entry][:user_id], room_id: room.id)
-        redirect_to room_path(room)
+        @room = Room.create
+        @current = EntryRoom.create(user_id: current_user.id, room_id: @room.id)
+        @another = EntryRoom.create(user_id: params[:user_id], room_id: @room.id)
+        redirect_to public_room_path(@room)
     end
     def index
         current = current_user.EntryRoom
@@ -16,9 +16,12 @@ class Public::RoomsController < ApplicationController
     end
     def show
         @room = Room.find(params[:id])
-        @messages = @room.direct_messages.all
+        @messages = @room.direct_messages
         @message = DirectMessage.new
-        @entries = @room.entryrooms
+        @entries = @room.entry_rooms
         @another = @entries.where.not(user_id: current_user.id).first
     end
+    private
+    
+    
 end

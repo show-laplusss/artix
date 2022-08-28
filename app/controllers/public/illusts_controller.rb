@@ -1,8 +1,9 @@
 class Public::IllustsController < ApplicationController
+  before_action :authenticate_user!, only: [:create]
   def new
     @illust = Illust.new
   end
-  
+
   def create
     @illust = Illust.new(illust_params)
     @illust.user_id = current_user.id
@@ -37,9 +38,9 @@ class Public::IllustsController < ApplicationController
   
   def update
     @illust = Illust.find(params[:id])
-   if @illust.update(book_params)
-    flash[:notice] = 'Book was successfully updated.'
-    redirect_to illust_path(@illust.id) 
+   if @illust.update(illust_params)
+    flash[:notice] = 'Illust was successfully updated.'
+    redirect_to public_illust_path(@illust.id) 
    else
     render :edit
    end
@@ -48,13 +49,13 @@ class Public::IllustsController < ApplicationController
   def destroy
     @illust = Illust.find(params[:id])
     @illust.destroy
-    redirect_to illusts_path
+    redirect_to public_illusts_path
   end
   
   private
 
   def illust_params
-    params.require(:illust).permit(:title, :detail)
+    params.require(:illust).permit(:title, :detail, :image)
   end
   
 end

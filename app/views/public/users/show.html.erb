@@ -3,7 +3,7 @@
         <div class="col-md-3">
             <h2>User info</h2>
                 <% if @user.profile_image.attached? %>
-                <%= image_tag @user.get_profile_image(100,100) %>
+                    <%= image_tag @user.get_profile_image(100,100) %>
                 <% end %>
                 <table class="table">
                     <tbody><tr></tr>
@@ -17,19 +17,21 @@
                     </tr>
                     </tbody>
                 </table>
-            <%= link_to edit_public_user_path(@user.id), class:"btn btn-outline-secondary btn-block" do %>
-                <i class="fas fa-user-cog"></i>
+            <% if @user == current_user %>
+                <%= link_to edit_public_user_path(@user.id), class:"btn btn-outline-secondary btn-block" do %>
+                    <i class="fas fa-user-cog"></i>
+                <% end %>
+            <% else %>
             <% end %>
 
 
 <% unless @user.id == current_user.id %>
     <% if @is_room == true %>
-        <%= link_to "message" , room_path(@room_id) %>
+        <%= link_to "message", public_room_path(@room_id) %>
     <% else %>
-        <%= form_with @room do |f| %>
-            <%= f.text_field :@entry  do |e| %>
-                <%= e.hidden_field :user_id, value: @user.id %>
-            <% end %>
+        <%= form_with url: public_rooms_path, method: :post do |f| %>
+            <%= f.text_field :@entry %>
+            <%= f.hidden_field :user_id, value: @user.id %>
             <%= f.submit "send message" %>
         <% end %>
     <% end %>
