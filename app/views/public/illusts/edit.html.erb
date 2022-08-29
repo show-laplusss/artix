@@ -11,7 +11,7 @@
   <div class="row">
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
       <h1>Editing Illust</h1>
-       <%= form_with url: public_illust_path(@illust),method: :patch do |f| %>
+       <%= form_with model: @illust, url: public_illust_path(@illust), method: :patch do |f| %>
        <div>
           <p>Title</p>
           <%= f.text_field :title, autofocus: true %>   

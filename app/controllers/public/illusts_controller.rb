@@ -55,7 +55,7 @@ class Public::IllustsController < ApplicationController
   private
 
   def illust_params
-    params.permit(:title, :detail, :image)
+    params.require(:illust).permit(:title, :detail, :image)
   end
   
 end
