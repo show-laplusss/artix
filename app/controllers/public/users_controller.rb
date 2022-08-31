@@ -34,9 +34,8 @@ class Public::UsersController < ApplicationController
   
   def update
     @user = User.find(params[:id])
-    if @user.update!(user_params)
+    if @user.update(user_params)
       flash[:notice] = 'User date was successfully updated.'
-      
       redirect_to public_user_path(@user.id)
     else
       render :edit
