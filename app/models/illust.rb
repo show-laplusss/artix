@@ -8,6 +8,6 @@ class Illust < ApplicationRecord
         favorites.exists?(user_id: user.id)
     end
     def get_image(width,height)
-        image.variant(resize_to_limit: [width, height]).processed
+        image.variant(resize_to_limit: [width, height])
     end
 end
