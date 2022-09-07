@@ -39,7 +39,7 @@ class User < ApplicationRecord
   
   has_one_attached :profile_image
   def get_profile_image(width,height)
-    profile_image.variant(resize_to_limit: [width, height]).processed
+    profile_image.variant(resize_to_limit: [width, height])
   end
   
 end
