@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-3">
       <h2>User info</h2>
-      <% if image attached? %>
+      <% if image.attached? %>
        <%= image_tag @user.get_profile_image(100,100) %>
       <% end %>
         <table class="table">
@@ -51,8 +51,10 @@
                       <%= illust.user.user_name %>
                   </td>
                   <td>
-                    <%= link_to public_user_path(illust.user.id) do %>
-                      <%= image_tag illust.user.get_profile_image(50,50) %>
+                    <% if image.attached? %>
+                      <%= link_to public_user_path(illust.user.id) do %>
+                        <%= image_tag illust.user.get_profile_image(50,50) %>
+                      <% end %>
                     <% end %>
                 </td>
               </tr>
