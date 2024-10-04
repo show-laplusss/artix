@@ -83,6 +83,53 @@
             <% end %>
           <% end %>
         </td>
+
+        
+        <% @illust.tags.each do |tag| %>
+          <span>M%= tag.name %></span>
+        <% end %>
+        
+        <td>
+          <%= @illust.detail %>
+        </td>
+      <% if @illust.user == current_user %>
+    <td>
+      <%= link_to edit_illust_path(@illust.id) do %>
+        <i class="btn btn-success" >Edit</i>
+      <% end %>
+    </td>
+    
+    <td>
+      コメント:<%= @illust.comments.count %>
+      <% @illust.comments.each do |comment| %>
+        <%= comment.user.name %>
+        <%= comment.created_ad.strftime('%Y/%m/%d') %><%= comment.comment %>
+        <% if comment.user == current_user %>
+          <%= link_to"削除", illust_comment_path(comment.illust, comment), method: :delete %>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <%= form_with model: [@illust.@comment] do |f| %>
+      <%= f.text_area :comment, rows: '5', placeholder:"コメント" %>
+      <%= f.submit "送信" %>
+      <% end %>
+    </td>
+    
+    
+    <% if @illust.favorited_by?(current_user) %>
+      <td>
+        <%= link_to illust_favorite_path(@illust), method: :delete do %>
+          <%= @illust.favorites.count %>いいね
+        <% end %>
+      </td>
+    <% else %>
+      <td>
+        <%= link_to illust_favorite_path(@illust), method: :post do %>
+          <%= @illust.favorites.count %>いいね
+        <% end %>
+      </td>
+    <% end %>
       </tr>
     <!--削除-->
         <tr>
@@ -97,4 +144,5 @@
       </table>
     </div>  
   </div>
+
 </div>
